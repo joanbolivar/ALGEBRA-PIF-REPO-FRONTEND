@@ -11,6 +11,9 @@ main {
     max-width: 1000px;
     margin: auto;
 }
+.bg-title{
+    background-color: rgba(172, 170, 165, 0.935);
+}
 
 figure,
 figure img {

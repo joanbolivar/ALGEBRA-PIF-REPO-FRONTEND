@@ -12,7 +12,7 @@ class Memorama {
         this.card1 = null;
         this.card2 = null;
 
-        this.availableImages = [16, 7, 102, 103];
+        this.availableImages = [1,2];
         this.orderForThisRound = [];
         this.cards = Array.from( document.querySelectorAll(".board-game figure") );
 
@@ -47,8 +47,9 @@ class Memorama {
             const imgLabel = card.children[1].children[0];
 
             card.dataset.image = image;
-            imgLabel.src = `https://randomfox.ca/images/${image}.jpg`;
-
+            
+            imgLabel.src = `C:/workspace_frontend/poli/ALGEBRA-PIF/memorama/images/se${image}.jpg`;
+            
         }
 
     }
