@@ -12,7 +12,7 @@ class Memorama {
         this.card1 = null;
         this.card2 = null;
 
-        this.availableImages = [1,2];
+        this.availableImages = [1,2,3,4,5,6];
         this.orderForThisRound = [];
         this.cards = Array.from( document.querySelectorAll(".board-game figure") );
 
@@ -123,8 +123,8 @@ class Memorama {
 
     resetOpenedCards() {
         
-        const firstOpened = document.querySelector(`.board-game figure.opened[data-image='${this.card1}']`);
-        const secondOpened = document.querySelector(`.board-game figure.opened[data-image='${this.card2}']`);
+        // const firstOpened = document.querySelector(`.board-game figure.opened[data-image='${this.card1}']`);
+        // const secondOpened = document.querySelector(`.board-game figure.opened[data-image='${this.card2}']`);
 
         firstOpened.classList.remove("opened");
         secondOpened.classList.remove("opened");
