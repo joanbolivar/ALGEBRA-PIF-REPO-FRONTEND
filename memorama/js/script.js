@@ -1,7 +1,3 @@
-// 16
-// 7
-// 102
-// 103
 
 class Memorama {
 
@@ -55,7 +51,7 @@ class Memorama {
 
             card.dataset.image = image;
             
-            imgLabel.src = `C:/workspace_frontend/poli/ALGEBRA-PIF/memorama/images/se${image}.jpg`;
+            imgLabel.src = `./images/se${image}.jpg`;
             
         }
 
@@ -103,21 +99,6 @@ class Memorama {
         this.cards.forEach(_this => _this.removeEventListener("click", this.flipCard));
 
     }
-
-    // flipCard(e) {
-
-    //     const clickedCard = e.target;
-
-    //     if (this.canPlay && !clickedCard.classList.contains("opened")) {
-            
-    //         clickedCard.classList.add("opened");
-    //         this.checkPair( clickedCard.dataset.image );
-
-    //     }
-
-    // }
-
-  
 
 
     flipCard(e) {
