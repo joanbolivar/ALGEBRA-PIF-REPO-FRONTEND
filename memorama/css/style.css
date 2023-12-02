@@ -11,8 +11,42 @@ main {
     max-width: 1000px;
     margin: auto;
 }
-.bg-title{
+
+.new-game-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 10px;
+    cursor: pointer;
+    border-radius: 12px;
+}
+
+#new-game:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+.bg-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     background-color: rgba(172, 170, 165, 0.935);
+}
+
+.bg-title h1 {
+    text-align: center;
+    flex-grow: 1;
+}
+
+.score {
+  font-size: 1.5rem;
+  font-weight: 700;
+  padding: 0.5rem 1rem;
 }
 
 figure,
