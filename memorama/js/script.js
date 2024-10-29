@@ -127,7 +127,8 @@ class Memorama {
                     const value = this.card1.dataset.image;
                     this.card2.addEventListener('transitionend', () => {
                     const solution = solutions[value];
-                    alert(`¡Has encontrado un par! La solución es: ${solution}`);
+                    //alert(`¡Has encontrado un par! La solución es: ${solution}`);
+                    alert(`¡Pronto tendremos el mensaje ganador!`);
                     }, { once: true });
     
                     this.card1 = null;
@@ -144,7 +145,8 @@ class Memorama {
                         document.getElementById('score').textContent = `Score: ${this.score}`;
                         if (this.score <= 1) {
                             setTimeout(() => {
-                                alert('Has perdido el juego');
+                               // alert('Has perdido el juego');
+                                alert('¡Pronto tendremos el mensaje perdedor!');
                                 this.setNewGame();
                             }, 500); // Retrasa la alerta y el reinicio del juego en 500 milisegundos
                         }
