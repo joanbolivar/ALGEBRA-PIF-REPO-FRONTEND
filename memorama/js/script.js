@@ -51,7 +51,7 @@ class Memorama {
 
             card.dataset.image = image;
             
-            imgLabel.src = `./images/back2.png`;
+            imgLabel.src = `./images/se${image}.jpg`;
             
         }
 
@@ -103,12 +103,12 @@ class Memorama {
 
     flipCard(e) {
         const solutions = {
-            '1': 'x = -7, y = -3',
-            '2': 'x = 60/19, y = -5/19',
-            '3': 'm= -3, n = -4',
-            '4': 'a = -1, b = 3, c = -2 ',
-            '5': 'x = -2, y = 3, z = -4',
-            '6': 'x = 3, y = 2'
+            '1': 'La aproximación más cercana a la raíz es x=1.4142; El método converge.',
+            '2': 'La aproximación más cercana a la raíz es x=1.4315; El método converge.',
+            '3': 'La aproximación más cercana a la raíz es x=1.8202; El método converge.',
+            '4': 'La aproximación más cercana a la raíz es x=2.875; El método converge.',
+            '5': 'La aproximación más cercana a la raíz es x=0.7260; El método converge.',
+            '6': 'La aproximación más cercana a la raíz es x=3.0624; El método converge.'
             // Agrega aquí el resto de las imágenes y sus soluciones
         };
 
@@ -127,8 +127,7 @@ class Memorama {
                     const value = this.card1.dataset.image;
                     this.card2.addEventListener('transitionend', () => {
                     const solution = solutions[value];
-                    //alert(`¡Has encontrado un par! La solución es: ${solution}`);
-                    alert(`¡Pronto tendremos el mensaje ganador!`);
+                    alert(`¡Has encontrado un par! La solución es: ${solution}`);
                     }, { once: true });
     
                     this.card1 = null;
@@ -145,8 +144,7 @@ class Memorama {
                         document.getElementById('score').textContent = `Score: ${this.score}`;
                         if (this.score <= 1) {
                             setTimeout(() => {
-                               // alert('Has perdido el juego');
-                                alert('¡Pronto tendremos el mensaje perdedor!');
+                               alert('Has perdido el juego');
                                 this.setNewGame();
                             }, 500); // Retrasa la alerta y el reinicio del juego en 500 milisegundos
                         }
