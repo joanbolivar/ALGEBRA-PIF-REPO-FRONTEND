@@ -1,22 +1,31 @@
+/* ./css/board.css */
+
 .board-game {
     display: grid;
-    /* Ajusta las columnas según el número de pares, ej: 4 pares x 2 = 8 cartas -> 4 columnas */
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-    perspective: 1200px; /* Para efecto de volteo 3D */
-    padding: 10px;
-    background-color: rgb(236, 240, 241,0.9);
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    /* Las columnas se ajustarán según el número de cartas en JS, ej: 4 */
+    /* grid-template-columns: repeat(4, 1fr); */ 
+    gap: 10px; /* Espacio entre cartas */
+    padding: 15px; /* Padding interno del tablero */
+    background-color: rgba(223, 230, 235, 0.7); /* Fondo ligeramente transparente para el tablero */
+    border-radius: 10px;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
     
+    /* --- AJUSTES DE TAMAÑO CON FLEXBOX (del .main-container) --- */
+    flex-basis: 55%; /* AJUSTADO: Ancho relativo al .main-container */
+    flex-grow: 1; /* Permitir que crezca si hay espacio */
+    min-width: 0; /* Importante para el encogimiento en flex */
+    align-self: stretch; /* Asegura que tome la altura completa si es necesario */
 }
 
 .board-game figure {
-    width: 200px;   /* Ancho de la carta */
-    height: 160px;  /* Alto de la carta */
+    width: 100%; /* Las cartas ocupan el ancho de la celda del grid */
+    aspect-ratio: 4 / 3; /* Mantiene la proporción de las cartas (ancho / alto) */
+    min-width: 70px; /* Ancho mínimo de carta */
+    max-width: 160px; /* Ancho máximo de carta, evita que sean enormes */
+    margin: 0 auto; /* Centra las cartas si la celda del grid es más ancha */
     position: relative;
     transform-style: preserve-3d;
-    transition: transform 0.7s cubic-bezier(0.4, 0.0, 0.2, 1); /* Transición más suave */
+    transition: transform 0.7s cubic-bezier(0.4, 0.0, 0.2, 1);
     cursor: pointer;
     border-radius: 8px;
 }
@@ -26,33 +35,31 @@
     position: absolute;
     width: 100%;
     height: 100%;
-    backface-visibility: hidden; /* Oculta la cara trasera al voltear */
+    backface-visibility: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
     border-radius: 8px;
-    padding: 10px;
+    padding: 8px;
     box-sizing: border-box;
-    font-size: 1em;
-    overflow: hidden; /* Para evitar que el texto largo se desborde feo */
+    font-size: 1em; /* Se ajustará con el tamaño de la carta */
+    overflow: hidden;
 }
 
 .board-game figure .back {
-    background-color:rgb(26, 83, 122,1); /* Color del reverso */
-    /* Opcional: usar una imagen para el reverso */
-    /* background-image: url('../images/back.png'); */
-    /* background-size: cover; */
-    /* background-position: center; */
+    background-color: #4a69bd; /* Azul más oscuro para el reverso */
+    /* background-image: url('../images/back-pattern.png'); Opcional */
+    background-size: cover;
     color: white;
-    font-size: 2.5em; /* Tamaño del '?' o lo que pongas */
+    font-size: 2.5em; /* Tamaño del '🔑' o emoji */
 }
 
 .board-game figure .front {
     background-color: #ffffff;
     color: #2c3e50;
-    transform: rotateY(180deg); /* Cara frontal inicialmente volteada */
-    border: 1px solid #bdc3c7;
+    transform: rotateY(180deg);
+    border: 1px solid #ced6e0;
 }
 
 .board-game figure.opened {
@@ -60,29 +67,32 @@
 }
 
 .board-game figure.matched {
-    transform: rotateY(180deg) scale(0.95); /* Mantiene volteada y un poco más pequeña */
-    opacity: 0.6;
+    transform: rotateY(180deg) scale(0.95);
+    opacity: 0.65; /* Ligeramente más visible */
     cursor: default;
-    box-shadow: 0 0 12px #2ecc71; /* Resaltado verde para pares encontrados */
+    box-shadow: 0 0 15px #2ecc71; /* Resaltado verde más pronunciado */
 }
 
 .card-content {
-    font-family: 'Source Code Pro', monospace; /* Fuente monoespaciada para regex */
-    font-size: 0.85em; /* Ajusta según necesites */
-    word-break: break-all; /* Para que las regex largas se dividan */
-    line-height: 1.4;
-    max-height: 100%; /* Asegurar que el contenido no exceda la carta */
-    overflow-y: auto; /* Scroll si el contenido es muy largo */
+    font-family: 'Source Code Pro', monospace;
+    font-size: 0.8em; /* Relativo al font-size de .front/.back */
+    word-break: break-all;
+    line-height: 1.3;
+    max-height: 100%;
+    overflow-y: auto;
+    padding: 2px; /* Pequeño padding interno para el contenido */
 }
 
-/* SweetAlert2 custom styles (opcional) */
-.swal2-html-container {
-    text-align: left !important;
-    line-height: 1.6;
-}
-.swal2-html-container code {
-    background-color: #f0f0f0;
-    padding: 2px 5px;
-    border-radius: 3px;
-    font-family: 'Source Code Pro', monospace;
+/* Ajustes responsivos para las cartas dentro de board.css si es necesario */
+@media (max-width: 576px) {
+    .board-game {
+        gap: 5px;
+        padding: 10px;
+    }
+    .board-game figure .back {
+        font-size: 2em;
+    }
+    .card-content {
+        font-size: 0.7em;
+    }
 }

@@ -6,10 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Source+Code+Pro&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./css/board.css">
-    <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="./css/powers.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    
+    <link rel="stylesheet" href="./css/style.css">   <link rel="stylesheet" href="./css/board.css">   <link rel="stylesheet" href="./css/powers.css">  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <title>Concéntrese Regex</title>
 </head>
 <body>
@@ -18,23 +16,33 @@
         <h1>🧠 Concéntrese 🤓 <span id="initial-preview-timer"></span></h1>
         <div class="game-stats">
             <span id="score" class="score">Puntuación: 100</span>
-            <span id="main-game-timer" class="main-timer">Tiempo: 03:00</span>
-        </div>
+            <span id="main-game-timer" class="main-timer">Tiempo: 07:00</span> </div>
     </div>
-    <div class="main-container">
-         <div class="powers-container">
-            <div id="powers-display">
+
+    <div class="main-container">  <aside class="guia-container">
+            <h2 class="guia-titulo">📜 Guía Rápida</h2>
+            <div class="guia-contenido">
+                <p>Encuentra los pares de expresiones regulares (regex) y sus cadenas de texto válidas.</p>
+                <p><strong>Ejemplos básicos:</strong></p>
+                <ul>
+                    <li><code>^abc$</code>: Coincide "abc".</li>
+                    <li><code>\d+</code>: Uno o más dígitos.</li>
+                    <li><code>[a-z]</code>: Letra minúscula.</li>
+                    <li><code>.*</code>: Cualquier carácter, cero o más veces.</li>
+                </ul>
+                <p class="mt-3">Utiliza sabiamente los <strong>poderes</strong> desbloqueados para superar el reto del tiempo.</p>
             </div>
-        </div>
+        </aside>
+
         <main class="board-game">
-        </main>
-        <div class="powers-container">
-            <div id="powers-display">
-            </div>
-        </div>
+            </main>
+
+        <aside class="powers-container"> <h2 class="powers-titulo">⚡ Poderes Desbloqueados ⚡</h2> <div id="powers-display">
+                </div>
+        </aside>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="./js/script.js"></script>
 </body>
-
 </html>

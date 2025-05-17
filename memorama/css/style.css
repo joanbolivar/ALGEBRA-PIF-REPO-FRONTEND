@@ -1,64 +1,103 @@
+/* ./css/style.css */
+:root {
+    /* Variables de color para los poderes (pueden quedarse en powers.css o moverse aquí) */
+    --power-default-color: #7f8c8d;
+    --power-vistazo-color: #3498db;
+    --power-tiempo-color: #2ecc71;
+    --power-destacada-color: #f1c40f;
+    --power-locked-bg: #e9ecef;
+    --power-locked-text: #6c757d;
+    --power-used-bg: #dfe6e9;
+    --power-used-text: #7f8c8d;
+    --power-available-bg: #ffffff;
+}
 
 body {
     font-family: 'Roboto', sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #f4f7f6;
-    margin: 20px 0;
-    color: #333;
-   background-image: linear-gradient(to bottom right, #74ebd5, #ACB6E5);
+    background-color: #f4f7f6; /* Color de fondo base si la imagen no carga */
+    /* Tu imagen de fondo: asegúrate que la ruta '../images/bg3.png' sea correcta desde la ubicación de style.css */
     background-image: url('../images/bg3.png');
-     min-height: 100vh;
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed; /* Fondo fijo al hacer scroll */
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    margin: 0; /* Quitar margen por defecto del body */
     padding: 20px 0; /* Padding vertical para el body */
+    color: #333;
+    box-sizing: border-box;
 }
 
-.main-container {
-    display: flex; /* Usamos flexbox para el diseño lado a lado */
-    justify-content: center; /* Espacio entre los elementos */
-    align-items: stretch; /* Alineación vertical al inicio */
-    width: 95%; /* Ajusta el ancho según sea necesario */
-    max-width: 1200px; /* Ancho máximo opcional */
-    margin: 20px auto; /* Centrar horizontalmente */
-    box-sizing: border-box; /* Incluir el padding en el ancho */
-    padding: 10px; /* Espacio alrededor del contenido */
-     gap: 20px;
+*, *::before, *::after {
+    box-sizing: inherit; /* Mejor manejo del box model */
 }
 
 .bg-title {
     text-align: center;
     margin-bottom: 25px;
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(255, 255, 255, 0.92); /* Fondo del título ligeramente más opaco */
     padding: 20px 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    width: 80%;
-    max-width: 700px;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    width: 90%;
+    max-width: 800px; /* Máximo ancho para el título */
 }
 
 .bg-title h1 {
-    margin: 0 0 10px 0;
-    font-size: 1.8em;
+    margin: 0 0 15px 0;
+    font-size: 2em; /* Ligeramente más grande */
     color: #2c3e50;
+    font-weight: 700;
+}
+
+.new-game-btn {
+    padding: 12px 25px;
+    font-size: 1.1em; /* Ligeramente más grande */
+    background-color: #007bff; /* Azul Bootstrap primario */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.new-game-btn:hover {
+    background-color: #0056b3;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.new-game-btn:disabled {
+    background-color: #bdc3c7;
+    cursor: not-allowed;
+    box-shadow: none;
 }
 
 .bg-title .game-stats {
     display: flex;
-    justify-content: space-around; /* O space-between si prefieres */
+    justify-content: space-around;
     align-items: center;
     margin-top: 10px;
-    flex-wrap: wrap; /* Para que se ajuste en pantallas pequeñas */
+    flex-wrap: wrap;
 }
 
 .bg-title .score,
 .bg-title .main-timer {
-    font-size: 1.2em;
+    font-size: 1.25em; /* Ligeramente más grande */
     font-weight: bold;
-    margin: 5px 10px; /* Espacio entre ellos */
+    margin: 5px 15px;
+    color: #1a5f7a; /* Un color base para los stats */
+}
+.bg-title .score{
+    color: #27ae60; /* Verde para la puntuación */
 }
 
 .bg-title .main-timer {
-    color: #e74c3c; /* Un color rojo para el tiempo */
+    color: #c0392b; /* Rojo para el temporizador */
 }
 
 .bg-title .main-timer.frozen {
@@ -68,130 +107,143 @@ body {
 
 @keyframes pulse-timer {
     0% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.05); opacity: 0.8; }
+    50% { transform: scale(1.03); opacity: 0.85; }
     100% { transform: scale(1); opacity: 1; }
 }
 
-/* Estilo para el temporizador de la vista previa inicial (antes #timer) */
-#initial-preview-timer {
+#initial-preview-timer { /* Antes #timer */
     font-weight: bold;
-    color: #2980b9; /* Un color azul diferente */
+    color: #16a085; /* Verde azulado */
     margin-left: 10px;
-    font-size: 1em; /* Un poco más pequeño que el título principal */
-}
-
-.new-game-btn {
-    padding: 12px 20px;
-    font-size: 1em;
-    background-color: #3498db;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-bottom: 15px; /* Espacio antes del título */
-}
-
-.new-game-btn:hover {
-    background-color: #2980b9;
-}
-
-.new-game-btn:disabled {
-    background-color: #bdc3c7;
-    cursor: not-allowed;
-}
-
-.score {
-    font-size: 1.3em;
-    color: #27ae60;
-    font-weight: bold;
-}
-
-#timer {
-    font-weight: bold;
-    color: #e74c3c;
-    margin-left: 10px;
+    font-size: 0.9em; /* Más pequeño que el título */
 }
 
 
-/*
-**/
-
-
-/* --- Estilos para Animación a Pantalla Completa --- */
-.fullscreen-animation-overlay {
-    position: fixed; /* Se superpone a todo */
-    top: 0;
-    left: 0;
-    width: 100vw; /* Ancho completo de la ventana */
-    height: 100vh; /* Alto completo de la ventana */
-    background-color: rgba(20, 40, 70, 0.85); /* Fondo oscuro semi-transparente */
+/* --- Layout Principal de Tres Columnas --- */
+.main-container {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 20000; /* Muy alto para estar encima de todo, incluso SweetAlert si es necesario */
-    opacity: 0;
-    visibility: hidden; /* Oculto por defecto */
-    transition: opacity 0.4s ease-out, visibility 0.4s ease-out; /* Transición suave para aparecer/desaparecer */
+    align-items: stretch; /* CLAVE: Mantiene todos los hijos con la misma altura */
+    justify-content: center; 
+    gap: 25px; /* Espacio entre las tres columnas */
+    width: 95%;
+    max-width: 1500px; /* Aumentado para acomodar tres columnas */
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.fullscreen-animation-overlay.visible {
-    opacity: 1;
-    visibility: visible;
+/* --- Columna GUIA --- */
+.guia-container {
+    flex-basis: 20%; /* Ancho base: ~20% */
+    flex-shrink: 0; /* Que no se encoja más de su base si el contenido lo permite */
+    min-width: 220px; /* Ancho mínimo para la guía */
+    background: linear-gradient(135deg, #ffffff, #eef2f7);
+    color: #34495e;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.07);
+    display: flex;
+    flex-direction: column;
 }
 
-.fullscreen-animation-overlay .animation-content {
+.guia-titulo {
+    font-size: 1.6em;
+    color: #2c3e50;
+    margin-top: 0;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #bdc3c7;
     text-align: center;
+    flex-shrink: 0;
 }
 
-.fullscreen-animation-overlay .animated-clock-icon {
-    font-size: 18vw; /* Tamaño del icono relativo al ancho de la ventana */
-    color: #f0f8ff; /* Color blanco-azulado (AliceBlue) */
-    display: inline-block;
-    text-shadow: 0 0 15px rgba(173, 216, 230, 0.7), /* Sombra azul claro */
-                 0 0 25px rgba(173, 216, 230, 0.5);
-    animation-fill-mode: forwards; /* Mantiene el estado final de la animación */
+.guia-contenido {
+    font-size: 0.9rem;
+    line-height: 1.65;
+    overflow-y: auto;
+    flex-grow: 1; /* Ocupa el espacio vertical disponible */
+    padding-right: 5px; /* Pequeño espacio si aparece scrollbar */
 }
 
-/* Animación del reloj congelándose */
-@keyframes freezeClockAnimation {
-    0% {
-        transform: scale(0.3) rotate(0deg);
-        opacity: 0;
-        filter: brightness(1.5);
+.guia-contenido ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+.guia-contenido ul li {
+    margin-bottom: 10px;
+}
+
+.guia-contenido code {
+    background-color: #dfe6e9;
+    padding: 3px 6px;
+    border-radius: 4px;
+    font-family: 'Source Code Pro', monospace;
+    color: #2d3436;
+}
+.guia-contenido .mt-3 { /* Bootstrap-like margin top */
+    margin-top: 1rem;
+}
+
+
+/* --- Responsividad para el Layout Principal --- */
+@media (max-width: 1100px) { /* Tablets y pantallas más pequeñas */
+    .main-container {
+        flex-direction: column;
+        align-items: center; /* Centra los elementos cuando están en columna */
+        gap: 25px;
     }
-    20% { /* Aparece y gira un poco */
-        transform: scale(1.1) rotate(-25deg);
-        opacity: 1;
+
+    .guia-container,
+    .board-game,
+    .powers-container {
+        flex-basis: auto; /* Resetea la base de flex */
+        width: 90%;     /* Ocupan casi todo el ancho disponible */
+        max-width: 700px; /* Un max-width para que no se estiren demasiado */
+        margin-bottom: 25px; /* Espacio entre ellos cuando están apilados */
     }
-    40% { /* Gira al otro lado */
-        transform: scale(0.9) rotate(20deg);
-        opacity: 1;
+    .powers-container{
+        margin-bottom: 0; /* El último elemento no necesita margen inferior */
     }
-    60% { /* Se estabiliza y comienza a "congelarse" */
-        transform: scale(1.05) rotate(0deg);
-        color: #d4f1f9; /* Tono más pálido */
-        filter: brightness(1.2) saturate(1.5);
-        text-shadow: 0 0 20px #87CEEB, 0 0 30px #87CEEB, 0 0 10px #fff;
+
+    .guia-container {
+        order: 1; /* Orden de apilamiento: Guía primero */
+        max-height: 350px;
     }
-    80% { /* Efecto de hielo más intenso */
-        transform: scale(1.1);
-        color: #b0e0e6; /* Azul polvo */
-        filter: contrast(1.2) brightness(1.1) /*blur(1px)*/; /* Puedes probar con blur */
-        text-shadow: 0 0 25px #ADD8E6, 0 0 40px #ADD8E6, 0 0 15px #fff, 0 0 5px #1e90ff; /* Destellos azules */
+    .board-game {
+        order: 2; /* Tablero en medio */
     }
-    100% { /* Totalmente "congelado" */
-        transform: scale(1.1);
-        opacity: 1;
-        color: #add8e6; /* Azul claro "hielo" */
-        filter: contrast(1.3) brightness(1);
-        text-shadow: 0 0 30px #87CEEB, 0 0 50px #87CEEB, 0 0 20px #fff, 0 0 8px #4682b4;
+    .powers-container {
+        order: 3; /* Poderes al final */
+        max-height: 450px;
     }
 }
 
-/* Aplicar la animación cuando el overlay es visible */
-.fullscreen-animation-overlay.visible .animated-clock-icon {
-    animation-name: freezeClockAnimation;
-    animation-duration: 2.5s; /* Duración de la animación del icono */
-    animation-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+@media (max-width: 576px) { /* Móviles pequeños */
+    .bg-title {
+        width: 95%;
+        padding: 15px;
+    }
+    .bg-title h1 {
+        font-size: 1.6em;
+    }
+    .new-game-btn {
+        font-size: 1em;
+        padding: 10px 15px;
+    }
+    .bg-title .score,
+    .bg-title .main-timer {
+        font-size: 1.1em;
+    }
+
+    .guia-container,
+    .board-game,
+    .powers-container {
+        width: 95%;
+    }
+    .guia-titulo {
+        font-size: 1.3em;
+    }
+    .powers-container h2.powers-titulo { /* Asegúrate que el selector sea específico */
+        font-size: 1.5em;
+    }
 }
