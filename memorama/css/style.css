@@ -126,7 +126,6 @@ body {
     justify-content: center; 
     gap: 25px; /* Espacio entre las tres columnas */
     width: 95%;
-    height: 100vh;
     max-width: 1500px; /* Aumentado para acomodar tres columnas */
     margin-left: auto;
     margin-right: auto;
