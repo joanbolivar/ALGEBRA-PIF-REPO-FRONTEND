@@ -2,7 +2,7 @@ class MemoramaRegex {
     constructor(gameBoardElement, numTotalCards = 12) { // numTotalCards debe ser par
         this.gameBoard = gameBoardElement;
         this.scoreElement = document.getElementById('score');
-           this.initialPreviewTimerDisplay = document.getElementById('initial-preview-timer');
+        this.initialPreviewTimerDisplay = document.getElementById('initial-preview-timer');
         this.mainGameTimerDisplay = document.getElementById('main-game-timer');
         this.newGameButton = document.getElementById('new-game');
 
@@ -26,22 +26,22 @@ class MemoramaRegex {
         this.foundPairsCount = 0;
         this.initialDisplayTimeoutId = null;
         this.countdownIntervalId = null;
-         this.initialDisplayDuration = 15000; // Duración inicial de la vista previa
+        this.initialDisplayDuration = 15000; // Duración inicial de la vista previa
         this.initialRevealOver = false; // Para saber si la revelación inicial ya pasó
 
 
-         // Propiedades para el TEMPORIZADOR PRINCIPAL DEL JUEGO
+        // Propiedades para el TEMPORIZADOR PRINCIPAL DEL JUEGO
         this.mainGameTimeLimit = 3 * 60; //3  minutos en segundos
         this.mainGameTimeRemaining = this.mainGameTimeLimit;
         this.mainGameTimerIntervalId = null;
         this.mainTimerFrozen = false;
         this.freezeTimerTimeoutId = null; // Para el timeout que descongela
 
-         this.powers = [
+        this.powers = [
             {
                 name: "Extra Vistazo 👀",
                 unlockThreshold: 1,
-                description: "",
+                description: "Revela todas las cartas no emparejadas por 10 segundos.",
                 unlocked: false,
                 used: false,
                 activate: () => this.activateExtraVistazo()
@@ -49,16 +49,16 @@ class MemoramaRegex {
             {
                 name: "Bono de Tiempo ⏳",
                 unlockThreshold: 3, // Se desbloquea al 3er par
-                description: ``,
+                description: "Congela el tiempo por 3 minutos.",
                 unlocked: false,
                 used: false,
                 activate: () => this.activateCongelarTemporizadorPrincipal() // NUEVA FUNCIÓN
 
             },
             {
-                name: "Pareja Destacada",
+                name: "Carta Destacada ⭐",
                 unlockThreshold: 4, // Se desbloquea al 4to par
-                description: "",
+                description: "Revela una carta al azar entre las no emparejadas.",
                 unlocked: false,
                 used: false,
                 activate: () => this.activateParejaDestacada()
@@ -68,7 +68,7 @@ class MemoramaRegex {
         this.loadDataAndStart();
     }
 
-     clearAllTimers() { // Método para limpiar todos los timers
+    clearAllTimers() { // Método para limpiar todos los timers
         if (this.initialDisplayTimeoutId) clearTimeout(this.initialDisplayTimeoutId);
         if (this.countdownIntervalId) clearInterval(this.countdownIntervalId);
         if (this.mainGameTimerIntervalId) clearInterval(this.mainGameTimerIntervalId);
@@ -81,12 +81,12 @@ class MemoramaRegex {
 
     async loadDataAndStart() {
         this.newGameButton.disabled = true;
-         this.clearAllTimers(); // Limpiar timers antes de empezar
-          this.powers.forEach(power => {
+        this.clearAllTimers(); // Limpiar timers antes de empezar
+        this.powers.forEach(power => {
             power.unlocked = false;
             power.used = false;
         });
-        
+
         try {
             const response = await fetch('./regex_data.txt');
             if (!response.ok) {
@@ -126,7 +126,7 @@ class MemoramaRegex {
             this.newGameButton.disabled = false;
         }
 
-      
+
     }
 
     startGame() {
@@ -137,10 +137,10 @@ class MemoramaRegex {
         this.canPlay = false;
         this.card1 = null;
         this.card2 = null;
-         this.initialRevealOver = false; // Resetear para el nuevo juego
+        this.initialRevealOver = false; // Resetear para el nuevo juego
 
         if (this.initialPreviewTimerDisplay) this.initialPreviewTimerDisplay.textContent = ''; // Limpiar display
-   // Resetear temporizador principal
+        // Resetear temporizador principal
         this.mainGameTimeRemaining = this.mainGameTimeLimit;
         this.mainTimerFrozen = false;
         this.updateMainGameTimerDisplay(); // Mostrar tiempo inicial (07:00)
@@ -155,7 +155,7 @@ class MemoramaRegex {
         this.shuffleCards();
         this.renderBoard();
         this.showCardsTemporarily(this.initialDisplayDuration);
-        
+
     }
 
     prepareCardsForRound() {
@@ -225,9 +225,9 @@ class MemoramaRegex {
     }
 
     showCardsTemporarily(duration) { // 8 segundos por defecto
-          this.initialDisplayDuration = duration; // Actualizar por si cambia con el poder
+        this.initialDisplayDuration = duration; // Actualizar por si cambia con el poder
         this.cardsElements.forEach(cardEl => cardEl.classList.add("opened"));
-         this.startInitialPreviewCountdown(Math.ceil(duration / 1000)); // Nombre cambiado
+        this.startInitialPreviewCountdown(Math.ceil(duration / 1000)); // Nombre cambiado
         if (this.initialDisplayTimeoutId) clearTimeout(this.initialDisplayTimeoutId);
 
 
@@ -236,7 +236,7 @@ class MemoramaRegex {
         }, duration);
     }
 
-hideCardsAndEnablePlay() {
+    hideCardsAndEnablePlay() {
         this.cardsElements.forEach(cardEl => {
             if (!cardEl.classList.contains('matched')) {
                 cardEl.classList.remove("opened");
@@ -250,7 +250,7 @@ hideCardsAndEnablePlay() {
 
         this.startMainGameTimer(); // <-- INICIAR TEMPORIZADOR PRINCIPAL DEL JUEGO
     }
-  startInitialPreviewCountdown(seconds) { // Nombre cambiado de startCountdown
+    startInitialPreviewCountdown(seconds) { // Nombre cambiado de startCountdown
         let count = seconds;
         if (this.countdownIntervalId) clearInterval(this.countdownIntervalId);
 
@@ -321,34 +321,48 @@ hideCardsAndEnablePlay() {
             this.card1.classList.add("matched");
             this.card2.classList.add("matched");
 
-             // *** Aquí está el cambio: ***
- const backDiv1 = this.card1.querySelector('.back');
- const backDiv2 = this.card2.querySelector('.back');
- backDiv1.textContent = '🤩'; // ¡Nuevo emoji!
- backDiv2.textContent = '🤩'; // ¡Nuevo emoji!
+            // *** Aquí está el cambio: ***
+            const backDiv1 = this.card1.querySelector('.back');
+            const backDiv2 = this.card2.querySelector('.back');
+            backDiv1.textContent = '🤩'; // ¡Nuevo emoji!
+            backDiv2.textContent = '🤩'; // ¡Nuevo emoji!
 
             // Remover listeners de las cartas emparejadas
             this.card1.removeEventListener("click", this.handleCardFlipBound);
             this.card2.removeEventListener("click", this.handleCardFlipBound);
-
-            this.checkAndUnlockPowers(); // <-- Comprobar y desbloquear poderes
+            const newlyUnlockedPowersList = this.checkAndUnlockPowers();
             this.updatePowersUI();      // <-- Actualizar UI de poderes
 
             setTimeout(() => {
                 Swal.fire({
                     icon: 'success',
                     title: '¡Par Correcto!',
-                    html: `<b>Expresión Regular:</b> <code>${regexCardContent}</code><br>
-                           <b>Cadena Válida:</b> <code>${stringCardContent}</code><br><br>
-                           <b>Explicación:</b><br>${explanation}`,
-                    confirmButtonText: '¡Genial!'
+                    html: `<div style="text-align: left;">
+               <b>Expresión Regular:</b> <code>${regexCardContent}</code><br>
+               <b>Cadena Válida:</b> <code>${stringCardContent}</code><br><br>
+               <b>Explicación:</b><br>${explanation}
+           </div>`,
+                    confirmButtonText: '¡Genial!',
+                    allowOutsideClick: false // Evitar que se cierre haciendo clic fuera
+
+                }).then(() => {
+                    if (newlyUnlockedPowersList.length > 0) {
+                        newlyUnlockedPowersList.forEach((unlockedPower, index) => {
+                            // Opcional: añadir un pequeño retraso escalonado si se desbloquean múltiples poderes a la vez
+                            // (aunque con tus umbrales actuales, esto es poco probable)
+                            setTimeout(() => {
+                                this.showPowerUnlockedNotification(unlockedPower);
+                            }, index * 600); // Retraso de 0.6s entre cada toast de poder
+                        });
+                    }
+                    this.resetSelectedCards();
+                    if (this.foundPairsCount === this.numPairs) {
+                        this.gameOver(true);
+                    } else {
+                        this.canPlay = true; // Permitir seguir jugando
+                    }
                 });
-                this.resetSelectedCards();
-                if (this.foundPairsCount === this.numPairs) {
-                    this.gameOver(true);
-                } else {
-                    this.canPlay = true; // Permitir seguir jugando
-                }
+
             }, 750); // Pequeña demora para ver el efecto y el SweetAlert
         } else { // No es un par
 
@@ -360,7 +374,7 @@ hideCardsAndEnablePlay() {
                 Swal.fire({
                     icon: 'error',
                     title: '¡Incorrecto!',
-                    html: `La cadena <code>${this.card1.dataset.type === 'string' ? this.card1.dataset.content : this.card2.dataset.content}</code> no es el par de la expresión <code>${this.card1.dataset.type === 'regex' ? this.card1.dataset.content : this.card2.dataset.content}</code>.<br><br><b>Explicación de la expresión que volteaste:</b><br>${this.card1.dataset.type === 'regex' ? this.card1.dataset.explanation : this.card2.dataset.explanation}`,
+                    html: `<div style="text-align: left;">La cadena <code>${this.card1.dataset.type === 'string' ? this.card1.dataset.content : this.card2.dataset.content}</code> no es el par de la expresión <code>${this.card1.dataset.type === 'regex' ? this.card1.dataset.content : this.card2.dataset.content}</code>.<br><br><b>Explicación de la expresión que volteaste:</b><br>${this.card1.dataset.type === 'regex' ? this.card1.dataset.explanation : this.card2.dataset.explanation} </div>`,
                     confirmButtonText: 'Intentar de nuevo'
                 });
                 this.card1.classList.remove("opened");
@@ -368,7 +382,7 @@ hideCardsAndEnablePlay() {
                 this.resetSelectedCards();
 
                 if (this.score <= 0) {
-                            console.log("[ScoreDebug] Puntuación llegó a cero o menos (" + this.score + "). Llamando a gameOver(false).");
+                    console.log("[ScoreDebug] Puntuación llegó a cero o menos (" + this.score + "). Llamando a gameOver(false).");
 
                     this.gameOver(false);
                 } else {
@@ -378,153 +392,184 @@ hideCardsAndEnablePlay() {
         }
     }
 
+    // checkAndUnlockPowers() {
+    //     this.powers.forEach(power => {
+    //         if (!power.unlocked && this.foundPairsCount >= power.unlockThreshold) {
+    //             power.unlocked = true;
+    //             Swal.fire({
+    //                 icon: 'star',
+    //                 title: '¡Poder Desbloqueado!',
+    //                 html: `Has desbloqueado: <b>${power.name}</b><br><small>${power.description}</small>`,
+    //                 toast: true,
+    //                 position: 'top-end',
+    //                 showConfirmButton: false,
+    //                 timer: 4000,
+    //                 timerProgressBar: true
+    //             });
+    //         }
+    //     });
+    // }
+
     checkAndUnlockPowers() {
+        const newlyUnlockedPowers = []; // Array para almacenar los poderes recién desbloqueados
         this.powers.forEach(power => {
             if (!power.unlocked && this.foundPairsCount >= power.unlockThreshold) {
                 power.unlocked = true;
-                Swal.fire({
-                    icon: 'star',
-                    title: '¡Poder Desbloqueado!',
-                    html: `Has desbloqueado: <b>${power.name}</b><br><small>${power.description}</small>`,
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 4000,
-                    timerProgressBar: true
-                });
+                // Añadimos el poder recién desbloqueado a nuestra lista temporal
+                newlyUnlockedPowers.push(power);
+                console.log(`[PowerDebug] Poder "${power.name}" preparado para notificación de desbloqueo.`);
+            }
+        });
+        return newlyUnlockedPowers; // Devolvemos la lista de poderes recién desbloqueados
+    }
+
+    showPowerUnlockedNotification(power) {
+        console.log(`[PowerDebug] Mostrando notificación para poder desbloqueado: "${power.name}"`);
+        Swal.fire({
+            icon: 'star', // Un icono de estrella para el poder
+            title: '¡Poder Desbloqueado!',
+            html: `Has desbloqueado: <b>${power.name}</b><br><small>${power.description}</small>`,
+            toast: true, // Usamos un toast para que sea menos intrusivo
+            position: 'top-end', // Esquina superior derecha
+            showConfirmButton: false,
+            timer: 4500, // Duración del toast un poco más larga
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer);
+                toast.addEventListener('mouseleave', Swal.resumeTimer);
             }
         });
     }
 
-     /*updatePowersUI() {
+    /*updatePowersUI() {
+       const powersDisplay = document.getElementById('powers-display');
+       if (!powersDisplay) return;
+       powersDisplay.innerHTML = '';
+
+       this.powers.forEach(power => {
+           const powerItemDiv = document.createElement('div');
+           powerItemDiv.classList.add('power-item');
+
+           let contentHtml = `<strong>${power.name}</strong><br><small>${power.description}</small><br>`;
+
+           if (!power.unlocked) {
+               powerItemDiv.classList.add('locked');
+               contentHtml += `<span>(Se desbloquea con ${power.unlockThreshold} pares)</span>`;
+           } else if (power.used) {
+               powerItemDiv.classList.add('used');
+               contentHtml += `<span>(Poder Usado)</span>`;
+           } else {
+               const button = document.createElement('button');
+               button.textContent = `Activar ${power.name}`;
+               button.onclick = () => {
+                   if (this.card1 && (power.name === "Extra Vistazo" || power.name === "Pareja Destacada")) {
+                       Swal.fire('Acción no permitida', 'Termina de seleccionar tu par actual antes de usar este poder.', 'warning');
+                       return;
+                   }
+                   power.activate();
+                   power.used = true;
+                   button.disabled = true; // Deshabilitar botón visualmente
+                   this.updatePowersUI(); // Re-render para mostrar como usado
+               };
+               powerItemDiv.appendChild(document.createElement('p').appendChild(button)); // Envuelve el botón en un <p> o similar si es necesario
+           }
+           powerItemDiv.insertAdjacentHTML('afterbegin', contentHtml); // Añade el texto antes del botón si existe
+           powersDisplay.appendChild(powerItemDiv);
+       });
+   }*/
+
+    updatePowersUI() {
         const powersDisplay = document.getElementById('powers-display');
         if (!powersDisplay) return;
-        powersDisplay.innerHTML = '';
+        powersDisplay.innerHTML = ''; // Limpiar vista previa
 
         this.powers.forEach(power => {
             const powerItemDiv = document.createElement('div');
             powerItemDiv.classList.add('power-item');
+            // Clase específica para cada poder basada en su nombre
+            const powerIdClass = 'power-' + power.name.toLowerCase().replace(/\s+/g, '-');
+            powerItemDiv.classList.add(powerIdClass);
 
-            let contentHtml = `<strong>${power.name}</strong><br><small>${power.description}</small><br>`;
+            let iconChar = '';
+            let powerColorVar = '--power-default-color'; // Variable CSS para el color del poder
+
+            if (power.name.includes("Extra Vistazo")) {
+                iconChar = '👁️';
+                powerColorVar = '--power-vistazo-color';
+            } else if (power.name.includes("Bono de Tiempo")) { // Antes Congelar Temporizador
+                iconChar = '⏱️';
+                powerColorVar = '--power-tiempo-color';
+            } else if (power.name.includes("Carta Destacada")) {
+                iconChar = '⭐';
+                powerColorVar = '--power-destacada-color';
+            }
+            powerItemDiv.style.setProperty('--power-theme-color', `var(${powerColorVar})`);
+
+
+            const contentDiv = document.createElement('div');
+            contentDiv.classList.add('power-content');
+
+            const iconSpan = document.createElement('span');
+            iconSpan.classList.add('power-icon');
+            iconSpan.textContent = iconChar;
+
+            const nameH3 = document.createElement('h3');
+            nameH3.classList.add('power-name');
+            nameH3.textContent = power.name;
+
+            const descriptionP = document.createElement('p');
+            descriptionP.classList.add('power-description');
+            descriptionP.textContent = power.description;
+
+            contentDiv.appendChild(iconSpan);
+            contentDiv.appendChild(nameH3);
+            contentDiv.appendChild(descriptionP);
+            powerItemDiv.appendChild(contentDiv);
+
+            const CtaDiv = document.createElement('div'); // Div para Call To Action (botón o estado)
+            CtaDiv.classList.add('power-cta');
 
             if (!power.unlocked) {
                 powerItemDiv.classList.add('locked');
-                contentHtml += `<span>(Se desbloquea con ${power.unlockThreshold} pares)</span>`;
+                const statusP = document.createElement('p');
+                statusP.classList.add('power-status', 'status-locked');
+                statusP.innerHTML = `<span class="lock-icon">🔒</span> Bloqueado <small>(Necesitas ${power.unlockThreshold} pares)</small>`;
+                CtaDiv.appendChild(statusP);
             } else if (power.used) {
                 powerItemDiv.classList.add('used');
-                contentHtml += `<span>(Poder Usado)</span>`;
-            } else {
+                const statusP = document.createElement('p');
+                statusP.classList.add('power-status', 'status-used');
+                statusP.textContent = `✔️ Poder Usado`;
+                CtaDiv.appendChild(statusP);
+            } else { // Desbloqueado y no usado
+                powerItemDiv.classList.add('available');
                 const button = document.createElement('button');
-                button.textContent = `Activar ${power.name}`;
+                button.classList.add('power-activate-btn');
+                button.innerHTML = `<span class="btn-icon">${iconChar}</span> Activar`;
                 button.onclick = () => {
+                    let canActivate = true;
                     if (this.card1 && (power.name === "Extra Vistazo" || power.name === "Pareja Destacada")) {
                         Swal.fire('Acción no permitida', 'Termina de seleccionar tu par actual antes de usar este poder.', 'warning');
-                        return;
+                        canActivate = false; // No marcar como usado si no se puede activar
                     }
-                    power.activate();
-                    power.used = true;
-                    button.disabled = true; // Deshabilitar botón visualmente
-                    this.updatePowersUI(); // Re-render para mostrar como usado
+
+                    if (canActivate) {
+                        const activationSuccessful = power.activate(); // Asumimos que activate() puede devolver false si falla
+                        if (activationSuccessful !== false) { // Si no devuelve explícitamente false, se considera usado
+                            power.used = true;
+                        } else {
+                            // Si activate() devolvió false, no se marcó como usado.
+                            // Esto requiere que tus funciones activate() devuelvan false si fallan por una condición interna.
+                        }
+                    }
+                    this.updatePowersUI(); // Siempre actualizar UI para reflejar el estado
                 };
-                powerItemDiv.appendChild(document.createElement('p').appendChild(button)); // Envuelve el botón en un <p> o similar si es necesario
+                CtaDiv.appendChild(button);
             }
-            powerItemDiv.insertAdjacentHTML('afterbegin', contentHtml); // Añade el texto antes del botón si existe
+            powerItemDiv.appendChild(CtaDiv);
             powersDisplay.appendChild(powerItemDiv);
         });
-    }*/
-
-        updatePowersUI() {
-    const powersDisplay = document.getElementById('powers-display');
-    if (!powersDisplay) return;
-    powersDisplay.innerHTML = ''; // Limpiar vista previa
-
-    this.powers.forEach(power => {
-        const powerItemDiv = document.createElement('div');
-        powerItemDiv.classList.add('power-item');
-        // Clase específica para cada poder basada en su nombre
-        const powerIdClass = 'power-' + power.name.toLowerCase().replace(/\s+/g, '-');
-        powerItemDiv.classList.add(powerIdClass);
-
-        let iconChar = '';
-        let powerColorVar = '--power-default-color'; // Variable CSS para el color del poder
-
-        if (power.name === "Extra Vistazo") {
-            iconChar = '👁️';
-            powerColorVar = '--power-vistazo-color';
-        } else if (power.name === "Bono de Tiempo") { // Antes Congelar Temporizador
-            iconChar = '⏱️';
-            powerColorVar = '--power-tiempo-color';
-        } else if (power.name === "Pareja Destacada") {
-            iconChar = '⭐';
-            powerColorVar = '--power-destacada-color';
-        }
-        powerItemDiv.style.setProperty('--power-theme-color', `var(${powerColorVar})`);
-
-
-        const contentDiv = document.createElement('div');
-        contentDiv.classList.add('power-content');
-
-        const iconSpan = document.createElement('span');
-        iconSpan.classList.add('power-icon');
-        iconSpan.textContent = iconChar;
-
-        const nameH3 = document.createElement('h3');
-        nameH3.classList.add('power-name');
-        nameH3.textContent = power.name;
-
-        const descriptionP = document.createElement('p');
-        descriptionP.classList.add('power-description');
-        descriptionP.textContent = power.description;
-
-        contentDiv.appendChild(iconSpan);
-        contentDiv.appendChild(nameH3);
-        contentDiv.appendChild(descriptionP);
-        powerItemDiv.appendChild(contentDiv);
-
-        const CtaDiv = document.createElement('div'); // Div para Call To Action (botón o estado)
-        CtaDiv.classList.add('power-cta');
-
-        if (!power.unlocked) {
-            powerItemDiv.classList.add('locked');
-            const statusP = document.createElement('p');
-            statusP.classList.add('power-status', 'status-locked');
-            statusP.innerHTML = `<span class="lock-icon">🔒</span> Bloqueado <small>(Necesitas ${power.unlockThreshold} pares)</small>`;
-            CtaDiv.appendChild(statusP);
-        } else if (power.used) {
-            powerItemDiv.classList.add('used');
-            const statusP = document.createElement('p');
-            statusP.classList.add('power-status', 'status-used');
-            statusP.textContent = `✔️ Poder Usado`;
-            CtaDiv.appendChild(statusP);
-        } else { // Desbloqueado y no usado
-            powerItemDiv.classList.add('available');
-            const button = document.createElement('button');
-            button.classList.add('power-activate-btn');
-            button.innerHTML = `<span class="btn-icon">${iconChar}</span> Activar`;
-            button.onclick = () => {
-                let canActivate = true;
-                if (this.card1 && (power.name === "Extra Vistazo" || power.name === "Pareja Destacada")) {
-                    Swal.fire('Acción no permitida', 'Termina de seleccionar tu par actual antes de usar este poder.', 'warning');
-                    canActivate = false; // No marcar como usado si no se puede activar
-                }
-
-                if (canActivate) {
-                    const activationSuccessful = power.activate(); // Asumimos que activate() puede devolver false si falla
-                    if (activationSuccessful !== false) { // Si no devuelve explícitamente false, se considera usado
-                        power.used = true;
-                    } else {
-                        // Si activate() devolvió false, no se marcó como usado.
-                        // Esto requiere que tus funciones activate() devuelvan false si fallan por una condición interna.
-                    }
-                }
-                this.updatePowersUI(); // Siempre actualizar UI para reflejar el estado
-            };
-            CtaDiv.appendChild(button);
-        }
-        powerItemDiv.appendChild(CtaDiv);
-        powersDisplay.appendChild(powerItemDiv);
-    });
-}
+    }
 
     resetSelectedCards() {
         this.card1 = null;
@@ -533,20 +578,20 @@ hideCardsAndEnablePlay() {
 
     gameOver(playerWon) {
         this.canPlay = false;
-         this.clearAllTimers();
+        this.clearAllTimers();
         this.removeClickEventsFromAllCards(); // Quitar todos los listeners
         clearTimeout(this.initialDisplayTimeoutId);
         clearInterval(this.countdownIntervalId);
-       // this.timerElement.textContent = '';
+        // this.timerElement.textContent = '';
         this.newGameButton.disabled = false; // Habilitar botón de nuevo juego
 
         let title, text, icon;
         if (playerWon) {
-            title = '🎉 ¡Felicidades, Ganaste! 🎉';
+            title = '🎉 ¡Felicidades, Ganaste!';
             text = `Completaste todos los pares. Tu puntuación final es: ${this.score}.`;
             icon = 'success';
         } else {
-            title = '😭 ¡Juego Terminado! 😭';
+            title = '😭 ¡Juego Terminado!';
             text = 'Te has quedado sin puntos. ¡Sigue practicando!';
             icon = 'error';
         }
@@ -595,7 +640,7 @@ hideCardsAndEnablePlay() {
         }, 1000);
     }
 
-     updateMainGameTimerDisplay() {
+    updateMainGameTimerDisplay() {
         if (!this.mainGameTimerDisplay) return;
         const minutes = Math.floor(this.mainGameTimeRemaining / 60);
         const seconds = this.mainGameTimeRemaining % 60;
@@ -608,15 +653,15 @@ hideCardsAndEnablePlay() {
             this.mainGameTimerDisplay.classList.remove('frozen');
         }
     }
-   
 
-     activateExtraVistazo() {
+
+    activateExtraVistazo() {
         if (!this.canPlay && !this.initialRevealOver) { // Si aún está en la revelación inicial
-             Swal.fire('Espera un poco', 'Este poder es más útil cuando las cartas ya están ocultas.', 'info');
-             const power = this.powers.find(p => p.name === "Extra Vistazo");
-             if(power) power.used = false; // Permitir re-uso si falló por timing
-             this.updatePowersUI();
-             return;
+            Swal.fire('Espera un poco', 'Este poder es más útil cuando las cartas ya están ocultas.', 'info');
+            const power = this.powers.find(p => p.name === "Extra Vistazo");
+            if (power) power.used = false; // Permitir re-uso si falló por timing
+            this.updatePowersUI();
+            return;
         }
 
         this.canPlay = false;
@@ -628,23 +673,23 @@ hideCardsAndEnablePlay() {
             Swal.fire('Nada que mostrar', 'Todas las cartas ya están reveladas o emparejadas.', 'info');
             this.canPlay = true;
             const power = this.powers.find(p => p.name === "Extra Vistazo");
-            if(power) power.used = false;
+            if (power) power.used = false;
             this.updatePowersUI();
             return;
         }
 
         Swal.fire({
 
-        /*
-             icon: 'star',
-                    title: '¡Poder Desbloqueado!',
-                    html: `Has desbloqueado: <b>${power.name}</b><br><small>${power.description}</small>`,
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 4000,
-                    timerProgressBar: true
-        */
+            /*
+                 icon: 'star',
+                        title: '¡Poder Desbloqueado!',
+                        html: `Has desbloqueado: <b>${power.name}</b><br><small>${power.description}</small>`,
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 4000,
+                        timerProgressBar: true
+            */
 
 
 
@@ -657,7 +702,7 @@ hideCardsAndEnablePlay() {
             position: 'top-end',
             timer: 5000,
             showConfirmButton: false,
-           timerProgressBar: true,
+            timerProgressBar: true,
             didOpen: () => {
                 unrevealedCards.forEach(card => card.classList.add('opened'));
             }
@@ -672,7 +717,7 @@ hideCardsAndEnablePlay() {
         });
     }
 
- // --- MODIFICACIÓN DEL PODER BONO DE TIEMPO ---
+    // --- MODIFICACIÓN DEL PODER BONO DE TIEMPO ---
     activateCongelarTemporizadorPrincipal() { // Nueva función para el poder
         if (!this.initialRevealOver) {
             Swal.fire('Espera un Poco', 'El juego principal aún no ha comenzado.', 'info');
@@ -697,7 +742,7 @@ hideCardsAndEnablePlay() {
         }
 
         this.mainTimerFrozen = true;
-        const freezeDurationSeconds = 2 * 60; // 2 minutos
+        const freezeDurationSeconds = 3 * 60; // 3 minutos
         this.updateMainGameTimerDisplay(); // Actualiza para mostrar "(Congelado)"
         Swal.fire({
             icon: 'info',
@@ -705,7 +750,7 @@ hideCardsAndEnablePlay() {
             text: `El temporizador principal se ha detenido por ${freezeDurationSeconds / 60} minutos.`,
             toast: true,
             position: 'top-center',
-            timer: 3000,
+            timer: 2000,
             showConfirmButton: false
         });
 
@@ -736,7 +781,7 @@ hideCardsAndEnablePlay() {
             Swal.fire('Nada que destacar', 'No hay cartas ocultas disponibles.', 'info');
             this.canPlay = true;
             const power = this.powers.find(p => p.name === "Pareja Destacada");
-            if(power) power.used = false;
+            if (power) power.used = false;
             this.updatePowersUI();
             return;
         }
@@ -748,23 +793,32 @@ hideCardsAndEnablePlay() {
         // No la marcamos como 'matched' ni la asignamos a this.card1/2 inmediatamente
         // Es una revelación permanente, el jugador la usará en su turno.
         // Si ya estaba this.card1 seleccionada, esta carta podría ser this.card2
-        
-        Swal.fire('¡Carta Destacada!', `Se ha revelado una carta para ayudarte.`, 'success');
-        
+
+
+        Swal.fire({
+            icon: 'info',
+            title: '¡Carta Destacada!',
+            text: `Se ha revelado una carta para ayudarte.`,
+            toast: true,
+            position: 'top-center',
+            timer: 2000,
+            showConfirmButton: false
+        });
+
         // Si el jugador ya tenía una carta seleccionada (this.card1),
         // y la carta revelada es su pareja, entonces es un match.
         if (this.card1 && this.card1 !== cardToReveal && this.card1.dataset.pairId === cardToReveal.dataset.pairId) {
             this.card2 = cardToReveal;
             // Retrasar un poco para que el jugador vea la carta destacada antes del match.
             setTimeout(() => {
-                 this.checkForMatch();
+                this.checkForMatch();
             }, 800);
         } else if (this.card1 && this.card1 !== cardToReveal) {
             // Si tenía una carta1 y la destacada no es su par, la destacada se queda abierta,
             // el jugador sigue con su card1 y puede elegir la destacada u otra.
             this.canPlay = true;
         }
-         else { // Si no había card1, o card1 es la misma que la revelada
+        else { // Si no había card1, o card1 es la misma que la revelada
             this.card1 = cardToReveal; // La carta destacada se convierte en la primera selección.
             this.canPlay = true; // Permitir al jugador buscar la pareja.
         }
@@ -772,10 +826,10 @@ hideCardsAndEnablePlay() {
 
 
 
-     // Método para manejar el reinicio desde el botón
+    // Método para manejar el reinicio desde el botón
     requestNewGame() {
-                this.clearAllTimers(); // Limpiar timers al solicitar nuevo juego
-if (this.mainGameTimerDisplay) this.mainGameTimerDisplay.textContent = `Tiempo: ${Math.floor(this.mainGameTimeLimit / 60).toString().padStart(2, '0')}:00`; // Reset visual
+        this.clearAllTimers(); // Limpiar timers al solicitar nuevo juego
+        if (this.mainGameTimerDisplay) this.mainGameTimerDisplay.textContent = `Tiempo: ${Math.floor(this.mainGameTimeLimit / 60).toString().padStart(2, '0')}:00`; // Reset visual
         if (this.initialPreviewTimerDisplay) this.initialPreviewTimerDisplay.textContent = '';
 
         if (this.initialDisplayTimeoutId) clearTimeout(this.initialDisplayTimeoutId);
