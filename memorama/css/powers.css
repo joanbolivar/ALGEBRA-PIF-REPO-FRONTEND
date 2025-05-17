@@ -1,0 +1,215 @@
+/* En ./css/style.css o un archivo dedicado para poderes */
+
+:root {
+    --power-default-color: #7f8c8d; /* Gris para por defecto o no temático */
+    --power-vistazo-color: #3498db; /* Azul brillante para Vistazo */
+    --power-tiempo-color: #2ecc71;  /* Verde para Bono de Tiempo (antes azul hielo) */
+    --power-destacada-color: #f1c40f; /* Amarillo/Dorado para Destacada */
+
+    --power-locked-bg: #e9ecef;
+    --power-locked-text: #6c757d;
+    --power-used-bg: #dfe6e9;
+    --power-used-text: #7f8c8d;
+    --power-available-bg: #ffffff;
+}
+
+.powers-container {
+    display: flex;
+     flex-direction: column;
+    margin-top: 0; /* Ajustado ya que está al lado del tablero */
+    padding: 15px;
+    background: linear-gradient(135deg, #317cae, #053951); /* Un gradiente más vibrante */
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 50%; /* O el ancho que hayas definido */
+    color: white; /* Texto blanco para el título del contenedor */
+    transition: all 0.3s ease-in-out;
+    flex-basis: 30%;
+}
+
+.powers-container h2 {
+    flex-shrink: 0;
+    margin-top: 0;
+    font-size: 1.8em; /* Más grande */
+    font-weight: 700;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+    margin-bottom: 25px; /* Más espacio */
+    border-bottom: 2px solid rgba(255,255,255,0.5);
+    padding-bottom: 10px;
+}
+
+#powers-display {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Espacio entre ítems de poder */
+     overflow-y: auto;
+     flex-grow: 1;
+     padding-right: 10px;
+     margin-right: -10px;
+}
+
+.power-item {
+    background-color: var(--power-available-bg);
+    color: #333;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: left;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border-left: 7px solid var(--power-theme-color, var(--power-default-color)); /* Borde temático */
+    transition: transform 0.25s ease-in-out, box-shadow 0.25s ease-in-out;
+    display: flex; /* Para alinear contenido y CTA */
+    flex-direction: column;
+    justify-content: space-between; /* Para empujar CTA abajo */
+    min-height: 180px; /* Altura mínima para consistencia */
+}
+
+.power-item:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.power-item .power-content {
+    margin-bottom: 15px; /* Espacio antes del CTA */
+}
+
+.power-item .power-icon {
+    font-size: 2.5em; /* Icono más grande */
+    float: left; /* Flotar el icono a la izquierda */
+    margin-right: 15px;
+    line-height: 1; /* Ajustar altura de línea */
+    color: var(--power-theme-color, var(--power-default-color));
+    opacity: 0.8;
+}
+
+.power-item .power-name {
+    font-size: 1.4em;
+    font-weight: 700;
+    color: var(--power-theme-color, #2c3e50); /* Color temático o por defecto */
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
+.power-item .power-description {
+    font-size: 0.95em;
+    color: #555;
+    line-height: 1.5;
+    margin-bottom: 0; /* Ajustado ya que el CTA va debajo */
+}
+
+.power-item .power-cta {
+    margin-top: auto; /* Empuja el CTA hacia abajo si hay espacio */
+    text-align: center; /* Centra el contenido del CTA */
+}
+
+.power-item .power-status {
+    font-weight: 600;
+    font-size: 0.9em;
+    padding: 8px;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+/* Estilos para estado BLOQUEADO */
+.power-item.locked {
+    background-color: var(--power-locked-bg);
+    border-left-color: var(--power-locked-text);
+    opacity: 0.7;
+}
+.power-item.locked .power-icon,
+.power-item.locked .power-name {
+    color: var(--power-locked-text);
+    opacity: 0.6;
+}
+.power-item.locked .power-description {
+    color: #888;
+}
+.power-item.locked .status-locked {
+    color: var(--power-locked-text);
+    background-color: rgba(0,0,0,0.05);
+}
+.power-item.locked .lock-icon {
+    margin-right: 5px;
+}
+
+/* Estilos para estado USADO */
+.power-item.used {
+    background-color: var(--power-used-bg);
+    border-left-color: var(--power-used-text);
+    opacity: 0.6;
+}
+.power-item.used .power-icon,
+.power-item.used .power-name {
+    color: var(--power-used-text);
+}
+.power-item.used .power-description {
+    color: #999;
+}
+.power-item.used .status-used {
+    color: var(--power-used-text);
+    font-style: italic;
+    background-color: rgba(0,0,0,0.03);
+}
+
+/* Estilos para el BOTÓN de activar (cuando está disponible) */
+.power-item.available {
+    /* El borde temático ya se aplica */
+}
+.power-activate-btn {
+    background: linear-gradient(135deg, var(--power-theme-color, #555), color-mix(in srgb, var(--power-theme-color, #555) 80%, black));
+    color: white;
+    border: none;
+    border-radius: 25px; /* Botón más redondeado */
+    padding: 12px 25px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px color-mix(in srgb, var(--power-theme-color, #000) 50%, transparent);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: inline-flex; /* Para alinear icono y texto */
+    align-items: center;
+    justify-content: center;
+    width: auto; /* O width: 100%; si quieres que ocupe todo el .power-cta */
+    margin-top: 10px;
+}
+.power-activate-btn .btn-icon {
+    margin-right: 8px;
+    font-size: 1.2em; /* Icono del botón */
+}
+
+.power-activate-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px color-mix(in srgb, var(--power-theme-color, #000) 60%, transparent);
+    filter: brightness(1.1);
+}
+.power-activate-btn:active {
+    transform: translateY(0px);
+    box-shadow: 0 3px 8px color-mix(in srgb, var(--power-theme-color, #000) 40%, transparent);
+}
+
+
+/* --- Estilos específicos para cada poder (ejemplos) --- */
+
+/* Poder: Extra Vistazo */
+.power-item.power-extra-vistazo.available {
+    /* Podrías añadir un fondo de gradiente específico o una imagen sutil si quisieras */
+     background-image: radial-gradient(circle, rgba(43, 242, 29, 0.593) 0%, transparent 70%); 
+}
+
+/* Poder: Bono de Tiempo (Congelar) */
+.power-item.power-bono-de-tiempo.available {
+     background-image: repeating-linear-gradient(
+        -45deg,
+        rgba(46, 204, 113, 0.05),
+        rgba(46, 204, 113, 0.05) 10px,
+        rgba(46, 204, 113, 0.1) 10px,
+        rgba(46, 204, 113, 0.1) 20px
+    ); 
+}
+
+/* Poder: Pareja Destacada */
+.power-item.power-pareja-destacada.available {
+    /* background-image: radial-gradient(circle, rgba(241, 196, 15, 0.15) 0%, transparent 60%); */
+}

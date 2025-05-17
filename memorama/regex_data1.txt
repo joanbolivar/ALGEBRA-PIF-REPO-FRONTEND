@@ -1,0 +1,8 @@
+^\d{3}$;123;perra
+^[a-zA-Z]+$;HolaMundo;Esta expresión busca una o más (+) letras mayúsculas o minúsculas de la 'a' a la 'z' (^[a-zA-Z]) desde el inicio hasta el final de la cadena.
+\b[A-Z][a-z]+\b;Manzana;Busca una palabra (\b indica límite de palabra) que comience con una letra mayúscula ([A-Z]) seguida de una o más letras minúsculas ([a-z]+).
+\d{2}-\d{2}-\d{4};25-12-2023;Coincide con un formato de fecha DD-MM-YYYY, donde \d{2} son dos dígitos y \d{4} son cuatro dígitos, separados por guiones.
+^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$;usuario@ejemplo.com;Valida una dirección de correo electrónico estándar. Comprueba el formato 'usuario@dominio.extension'.
+(gato|perro|pez);perro;Esta expresión busca la palabra exacta 'gato', 'perro' o 'pez'. El pipe (|) actúa como un OR.
+^#?([a-f0-9]{6}|[a-f0-9]{3})$;#FF0000;Valida un código de color hexadecimal. Puede empezar con '#' opcionalmente (?) y ser de 6 o 3 caracteres hexadecimales.
+\(\d{3}\) \d{3}-\d{4};(123) 456-7890;Busca un número de teléfono en el formato (XXX) XXX-XXXX. Los paréntesis \( y \) deben escaparse.

@@ -1,99 +1,197 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+
+body {
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f4f7f6;
+    margin: 20px 0;
+    color: #333;
+   background-image: linear-gradient(to bottom right, #74ebd5, #ACB6E5);
+    background-image: url('../images/bg3.png');
+     min-height: 100vh;
+    padding: 20px 0; /* Padding vertical para el body */
 }
 
-main {
-    display: grid;
-    grid-gap: 10px;
-    grid-template-columns: repeat(6, 1fr);
-    max-width: 1000px;
-    margin: auto;
-}
-
-.new-game-btn {
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #4CAF50; /* Green */
-    border: none;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    margin: 4px 10px;
-    cursor: pointer;
-    border-radius: 12px;
-}
-
-#new-game:disabled {
-    background-color: #cccccc;
-    cursor: not-allowed;
+.main-container {
+    display: flex; /* Usamos flexbox para el diseño lado a lado */
+    justify-content: center; /* Espacio entre los elementos */
+    align-items: stretch; /* Alineación vertical al inicio */
+    width: 95%; /* Ajusta el ancho según sea necesario */
+    max-width: 1200px; /* Ancho máximo opcional */
+    margin: 20px auto; /* Centrar horizontalmente */
+    box-sizing: border-box; /* Incluir el padding en el ancho */
+    padding: 10px; /* Espacio alrededor del contenido */
+     gap: 20px;
 }
 
 .bg-title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: rgba(172, 170, 165, 0.935);
+    text-align: center;
+    margin-bottom: 25px;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    width: 80%;
+    max-width: 700px;
 }
 
 .bg-title h1 {
-    text-align: center;
-    flex-grow: 1;
+    margin: 0 0 10px 0;
+    font-size: 1.8em;
+    color: #2c3e50;
+}
+
+.bg-title .game-stats {
+    display: flex;
+    justify-content: space-around; /* O space-between si prefieres */
+    align-items: center;
+    margin-top: 10px;
+    flex-wrap: wrap; /* Para que se ajuste en pantallas pequeñas */
+}
+
+.bg-title .score,
+.bg-title .main-timer {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 5px 10px; /* Espacio entre ellos */
+}
+
+.bg-title .main-timer {
+    color: #e74c3c; /* Un color rojo para el tiempo */
+}
+
+.bg-title .main-timer.frozen {
+    color: #3498db; /* Azul cuando está congelado */
+    animation: pulse-timer 1.5s infinite ease-in-out;
+}
+
+@keyframes pulse-timer {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.05); opacity: 0.8; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Estilo para el temporizador de la vista previa inicial (antes #timer) */
+#initial-preview-timer {
+    font-weight: bold;
+    color: #2980b9; /* Un color azul diferente */
+    margin-left: 10px;
+    font-size: 1em; /* Un poco más pequeño que el título principal */
+}
+
+.new-game-btn {
+    padding: 12px 20px;
+    font-size: 1em;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 15px; /* Espacio antes del título */
+}
+
+.new-game-btn:hover {
+    background-color: #2980b9;
+}
+
+.new-game-btn:disabled {
+    background-color: #bdc3c7;
+    cursor: not-allowed;
 }
 
 .score {
-  font-size: 1.5rem;
-  font-weight: 700;
-  padding: 0.5rem 1rem;
+    font-size: 1.3em;
+    color: #27ae60;
+    font-weight: bold;
 }
 
-figure,
-figure img {
-    display: inline-block;
-    width: 100%;
+#timer {
+    font-weight: bold;
+    color: #e74c3c;
+    margin-left: 10px;
 }
 
-figure {
-    position: relative;
-    transition: all ease .5s;
-    transform-style: preserve-3d;
-    transform: perspective(600px) rotateY(0deg);
-    cursor: pointer;
-    box-shadow: 3px 3px 16px rgb(0, 0, 0, 0.6);
-}
 
-figure::after {
-    content: '';
-    position: absolute;
+/*
+**/
+
+
+/* --- Estilos para Animación a Pantalla Completa --- */
+.fullscreen-animation-overlay {
+    position: fixed; /* Se superpone a todo */
     top: 0;
     left: 0;
+    width: 100vw; /* Ancho completo de la ventana */
+    height: 100vh; /* Alto completo de la ventana */
+    background-color: rgba(20, 40, 70, 0.85); /* Fondo oscuro semi-transparente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 20000; /* Muy alto para estar encima de todo, incluso SweetAlert si es necesario */
+    opacity: 0;
+    visibility: hidden; /* Oculto por defecto */
+    transition: opacity 0.4s ease-out, visibility 0.4s ease-out; /* Transición suave para aparecer/desaparecer */
+}
+
+.fullscreen-animation-overlay.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.fullscreen-animation-overlay .animation-content {
+    text-align: center;
+}
+
+.fullscreen-animation-overlay .animated-clock-icon {
+    font-size: 18vw; /* Tamaño del icono relativo al ancho de la ventana */
+    color: #f0f8ff; /* Color blanco-azulado (AliceBlue) */
     display: inline-block;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0);
-    transition: 0.3s all ease;
+    text-shadow: 0 0 15px rgba(173, 216, 230, 0.7), /* Sombra azul claro */
+                 0 0 25px rgba(173, 216, 230, 0.5);
+    animation-fill-mode: forwards; /* Mantiene el estado final de la animación */
 }
 
-figure:hover:after {
-    background: rgba(255, 255, 255, 0.137);
+/* Animación del reloj congelándose */
+@keyframes freezeClockAnimation {
+    0% {
+        transform: scale(0.3) rotate(0deg);
+        opacity: 0;
+        filter: brightness(1.5);
+    }
+    20% { /* Aparece y gira un poco */
+        transform: scale(1.1) rotate(-25deg);
+        opacity: 1;
+    }
+    40% { /* Gira al otro lado */
+        transform: scale(0.9) rotate(20deg);
+        opacity: 1;
+    }
+    60% { /* Se estabiliza y comienza a "congelarse" */
+        transform: scale(1.05) rotate(0deg);
+        color: #d4f1f9; /* Tono más pálido */
+        filter: brightness(1.2) saturate(1.5);
+        text-shadow: 0 0 20px #87CEEB, 0 0 30px #87CEEB, 0 0 10px #fff;
+    }
+    80% { /* Efecto de hielo más intenso */
+        transform: scale(1.1);
+        color: #b0e0e6; /* Azul polvo */
+        filter: contrast(1.2) brightness(1.1) /*blur(1px)*/; /* Puedes probar con blur */
+        text-shadow: 0 0 25px #ADD8E6, 0 0 40px #ADD8E6, 0 0 15px #fff, 0 0 5px #1e90ff; /* Destellos azules */
+    }
+    100% { /* Totalmente "congelado" */
+        transform: scale(1.1);
+        opacity: 1;
+        color: #add8e6; /* Azul claro "hielo" */
+        filter: contrast(1.3) brightness(1);
+        text-shadow: 0 0 30px #87CEEB, 0 0 50px #87CEEB, 0 0 20px #fff, 0 0 8px #4682b4;
+    }
 }
 
-figure.opened {
-    transform: perspective(600px) rotateY(180deg);
-}
-
-figure .back {
-    display: block;
-    backface-visibility: hidden;
-}
-
-figure .searched-image {
-    position: absolute;
-    top: 0;
-    transform: perspective(600px) rotateY(180deg);
-    backface-visibility: hidden;
-    height: 100%;
-    overflow: hidden;
+/* Aplicar la animación cuando el overlay es visible */
+.fullscreen-animation-overlay.visible .animated-clock-icon {
+    animation-name: freezeClockAnimation;
+    animation-duration: 2.5s; /* Duración de la animación del icono */
+    animation-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
 }

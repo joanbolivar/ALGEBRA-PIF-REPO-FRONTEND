@@ -5,233 +5,36 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Source+Code+Pro&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./css/board.css">
     <link rel="stylesheet" href="./css/style.css">
-    <title>Memorama</title>
+    <link rel="stylesheet" href="./css/powers.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <title>Concéntrese Regex</title>
 </head>
 <body>
-    <!-- <div class="d-flex"> -->
-        <!-- <button id="start">Start</button>
-        <button id="reset">Reset</button> -->
-    
-        <div class="bg-title ">
-            <button id="new-game" class="new-game-btn">Juego Nuevo</button>
-            <h1>🧠 ¿Listo para jugar? 🤓  <span id="timer"></span></h1>
-            <span id="score" class="score"></span>
+    <div class="bg-title">
+        <button id="new-game" class="new-game-btn">Juego Nuevo</button>
+        <h1>🧠 Concéntrese 🤓 <span id="initial-preview-timer"></span></h1>
+        <div class="game-stats">
+            <span id="score" class="score">Puntuación: 100</span>
+            <span id="main-game-timer" class="main-timer">Tiempo: 03:00</span>
         </div>
-      
-    <!-- </div> -->
- 
-
-
-    <main class="board-game">
-
-        <!-- <figure>
-            <img class="back" src="./images/back.png" alt="Back">
-            <div class="searched-image">
-                <img src="./images/back2.png" alt="Back">
+    </div>
+    <div class="main-container">
+         <div class="powers-container">
+            <div id="powers-display">
             </div>
-        </figure>
-
-        <figure>
-            <img class="back" src="./images/back.png" alt="Back">
-            <div class="searched-image">
-                <img src="./images/back2.png" alt="Back">
+        </div>
+        <main class="board-game">
+        </main>
+        <div class="powers-container">
+            <div id="powers-display">
             </div>
-        </figure>
-
-        <figure>
-            <img class="back" src="./images/back.png" alt="Back">
-            <div class="searched-image">
-                <img src="./images/back2.png" alt="Back">
-            </div>
-        </figure>
-
-        <figure>
-            <img class="back" src="./images/back.png" alt="Back">
-            <div class="searched-image">
-                <img src="./images/back2.png" alt="Back">
-            </div>
-        </figure>
-
-        <figure>
-            <img class="back" src="./images/back.png" alt="Back">
-            <div class="searched-image">
-                <img src="./images/back2.png" alt="Back">
-            </div>
-        </figure>
-
-        <figure>
-            <img class="back" src="./images/back.png" alt="Back">
-            <div class="searched-image">
-                <img src="./images/back2.png" alt="Back">
-            </div>
-        </figure>
-        <figure>
-            <img class="back" src="./images/back.png" alt="Back">
-            <div class="searched-image">
-                <img src="./images/back2.png" alt="Back">
-            </div>
-        </figure>
-        <figure>
-            <img class="back" src="./images/back.png" alt="Back">
-            <div class="searched-image">
-                <img src="./images/back2.png" alt="Back">
-            </div>
-        </figure>
-        <figure>
-            <img class="back" src="./images/back.png" alt="Back">
-            <div class="searched-image">
-                <img src="./images/back2.png" alt="Back">
-            </div>
-        </figure>
-        <figure>
-            <img class="back" src="./images/back.png" alt="Back">
-            <div class="searched-image">
-                <img src="./images/back2.png" alt="Back">
-            </div>
-        </figure>
-        <figure>
-            <img class="back" src="./images/back.png" alt="Back">
-            <div class="searched-image">
-                <img src="./images/back2.png" alt="Back">
-            </div>
-        </figure>
-        <figure>
-            <img class="back" src="./images/back.png" alt="Back">
-            <div class="searched-image">
-                <img src="./images/back2.png" alt="Back">
-            </div>
-        </figure> -->
-
-        <figure>
-            <img class="back" src="./images/back.png" alt="Back">
-            <div class="searched-image">
-                <img src="./images/se1.jpg" alt="Back">
-            </div>
-        </figure>
-
-        <figure>
-            <img class="back" src="./images/back.png" alt="Back">
-            <div class="searched-image">
-                <img src="./images/se2.jpg" alt="Back">
-            </div>
-        </figure>
-
-        <figure>
-            <img class="back" src="./images/back.png" alt="Back">
-            <div class="searched-image">
-                <img src="./images/se2.jpg" alt="Back">
-            </div>
-        </figure>
-
-        <figure>
-            <img class="back" src="./images/back.png" alt="Back">
-            <div class="searched-image">
-                <img src="./images/se2.jpg" alt="Back">
-            </div>
-        </figure>
-
-        <figure>
-            <img class="back" src="./images/back.png" alt="Back">
-            <div class="searched-image">
-                <img src="./images/se3.jpg" alt="Back">
-            </div>
-        </figure>
-
-        <figure>
-            <img class="back" src="./images/back.png" alt="Back">
-            <div class="searched-image">
-                <img src="./images/se3.jpg" alt="Back">
-            </div>
-        </figure>
-        <figure>
-            <img class="back" src="./images/back.png" alt="Back">
-            <div class="searched-image">
-                <img src="./images/se4.jpg" alt="Back">
-            </div>
-        </figure>
-        <figure>
-            <img class="back" src="./images/back.png" alt="Back">
-            <div class="searched-image">
-                <img src="./images/se4.jpg" alt="Back">
-            </div>
-        </figure>
-        <figure>
-            <img class="back" src="./images/back.png" alt="Back">
-            <div class="searched-image">
-                <img src="./images/se4.jpg" alt="Back">
-            </div>
-        </figure>
-        <figure>
-            <img class="back" src="./images/back.png" alt="Back">
-            <div class="searched-image">
-                <img src="./images/se4.jpg" alt="Back">
-            </div>
-        </figure>
-        <figure>
-            <img class="back" src="./images/back.png" alt="Back">
-            <div class="searched-image">
-                <img src="./images/se4.jpg" alt="Back">
-            </div>
-        </figure>
-        <figure>
-            <img class="back" src="./images/back.png" alt="Back">
-            <div class="searched-image">
-                <img src="./images/se4.jpg" alt="Back">
-            </div>
-        </figure>
-
-
-    
-
-        <!-- <figure>
-            <img class="back" src="./images/back.png" alt="Back">
-            <div class="searched-image">
-                <img src="https://randomfox.ca/images/103.jpg" alt="Back">
-            </div>
-        </figure>
-
-        <figure>
-            <img class="back" src="./images/back.png" alt="Back">
-            <div class="searched-image">
-                <img src="https://randomfox.ca/images/7.jpg" alt="Back">
-            </div>
-        </figure>
-
-        <figure>
-            <img class="back" src="./images/back.png" alt="Back">
-            <div class="searched-image">
-                <img src="https://randomfox.ca/images/102.jpg" alt="Back">
-            </div>
-        </figure>
-
-        <figure>
-            <img class="back" src="./images/back.png" alt="Back">
-            <div class="searched-image">
-                <img src="https://randomfox.ca/images/103.jpg" alt="Back">
-            </div>
-        </figure>
-
-        <figure>
-            <img class="back" src="./images/back.png" alt="Back">
-            <div class="searched-image">
-                <img src="https://randomfox.ca/images/103.jpg" alt="Back">
-            </div>
-        </figure>
-
-        <figure>
-            <img class="back" src="./images/back.png" alt="Back">
-            <div class="searched-image">
-                <img src="https://randomfox.ca/images/103.jpg" alt="Back">
-            </div>
-        </figure> -->
-         
-        
-    </main>
-
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="./js/script.js"></script>
-
 </body>
+
 </html>
